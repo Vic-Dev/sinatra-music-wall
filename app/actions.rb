@@ -8,7 +8,6 @@ end
 
 get '/tracks' do
   @tracks = Track.all
-  @users = User.all
   erb :'tracks/index'
 end
 
@@ -33,7 +32,6 @@ post '/tracks' do
     URL: params[:URL],
     user_id: params[:user][:id]
     )
-  @user = @track.user_id
   if @track.save
     redirect '/tracks'
   else

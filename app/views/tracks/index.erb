@@ -34,7 +34,7 @@
     <% @tracks.each do |track| %>
     <div class="track page-header col-md-4 text-center">
       <h3><a href="/tracks/<%= track.id %>"><%= track.title %></a> <p><small>(by: <%= track.author %>)</small></p></h3>
-      <p><small>Posted by: <% track.user_id %><%= @users.where('id: ?', track.user_id).name %></small></p>
+      <p><small>Posted by: <%= track.user.name unless track.user.nil? %></small></p>
     </div>
     <% end %>
   </div>
