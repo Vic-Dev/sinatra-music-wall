@@ -13,7 +13,7 @@
         </li>
         <li role="presentation"><a href="/tracks/form">Submission</a></li>
         <% unless session["user"] %>
-        <li role="presentation"><a href="/users/login">Log In</a></li>
+        <li role="presentation" class="active"><a href="/users/login">Log In</a></li>
         <% end %>
         <% unless session["user"] %>
         <li role="presentation"><a href="/users/signup">Sign Up</a></li>
@@ -25,22 +25,28 @@
     </div>
   </nav>
 
-  <div class="jumbotron">
-    <h1><%= @track.title %></h1>
+  <div class="jumbotron text-center">
+    <h1>Log In</h1>
   </div>
-  <div class="page-header">
-    <h2><strong><%= @track.author %></strong></h2>
-  </div>
-
-  <p>
-    <div class="embed-responsive embed-responsive-4by3">
-      <%= @track_embed = /=(.*)$/.match(@track.URL)[1] %>
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/<%= @track_embed %>" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </p>
-
   <hr/>
-  <div class="page-header">
-    <h2><a href="/tracks">Back to All Tracks</a></h2>
+
+  <div class="fluid-container">
+    <form method="post" action="/users/login">
+
+      <div class="form-group">
+        <h3><label class="label label-info">Username</label></h3>
+        <input type="text" class="form-control" placeholder="username" name="user[name]">
+      </div>
+
+      <div class="form-group">
+        <h3><label class="label label-info">Password</label></h3>
+        <input type="text" class="form-control" placeholder="******" name="user[password]">
+      </div>
+
+      <div>
+        <input type="submit" class="btn btn-primary btn-lg center-block" value="Log In">
+      </div>
+
+    </form>
   </div>
 </div>

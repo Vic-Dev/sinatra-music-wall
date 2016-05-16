@@ -19,28 +19,25 @@
         <li role="presentation"><a href="/users/signup">Sign Up</a></li>
         <% end %>
         <% if session["user"] %>
-        <li role="presentation"><a href="/users/logout">Log Out</a></li>
+        <li role="presentation" class="active"><a href="/users/logout">Log Out</a></li>
         <% end %>
       </div>
     </div>
   </nav>
 
-  <div class="jumbotron">
-    <h1><%= @track.title %></h1>
+  <div class="jumbotron text-center">
+    <h1>Log Out</h1>
   </div>
-  <div class="page-header">
-    <h2><strong><%= @track.author %></strong></h2>
-  </div>
-
-  <p>
-    <div class="embed-responsive embed-responsive-4by3">
-      <%= @track_embed = /=(.*)$/.match(@track.URL)[1] %>
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/<%= @track_embed %>" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </p>
-
   <hr/>
-  <div class="page-header">
-    <h2><a href="/tracks">Back to All Tracks</a></h2>
+
+  <div class="fluid-container">
+    <form method="post" action="/users/logout">
+
+      <div class="page-header text-center">
+        <h3>Do you want to log out?</h3>
+        <input type="submit" class="btn btn-primary btn-lg center-block" value="Log Out">
+      </div>
+
+    </form>
   </div>
 </div>

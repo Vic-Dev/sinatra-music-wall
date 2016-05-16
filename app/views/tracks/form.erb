@@ -6,9 +6,21 @@
         <a class="navbar-brand" href="/">Music Wall</a>
       </div>
       <div class="nav navbar-nav navbar-right nav-pills">
+        <% if session["user"] %>
+        <span>Hi <%= session["user"] %>!</span>
+        <% end %>
         <li role="presentation"><a href="/tracks">Tracks</a>
         </li>
-        <li role="presentation" class="active"><a href="/tracks/form">Form</a></li>
+        <li role="presentation" class="active"><a href="/tracks/form">Submission</a></li>
+        <% unless session["user"] %>
+        <li role="presentation"><a href="/users/login">Log In</a></li>
+        <% end %>
+        <% unless session["user"] %>
+        <li role="presentation"><a href="/users/signup">Sign Up</a></li>
+        <% end %>
+        <% if session["user"] %>
+        <li role="presentation"><a href="/users/logout">Log Out</a></li>
+        <% end %>
       </div>
     </div>
   </nav>
@@ -46,7 +58,7 @@
         <input type="text" class="form-control" placeholder="https://youtube.com/watch?" name="URL" value="<%= @track.URL %>">
       </div>
 
-      <div class="m-t-2">
+      <div>
         <input type="submit" class="btn btn-primary btn-lg center-block" value="Submit">
       </div>
 

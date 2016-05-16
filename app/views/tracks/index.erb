@@ -6,9 +6,21 @@
         <a class="navbar-brand" href="/">Music Wall</a>
       </div>
       <div class="nav navbar-nav navbar-right nav-pills">
+        <% if session["user"] %>
+        <span>Hi <%= session["user"] %>!</span>
+        <% end %>
         <li role="presentation" class="active"><a href="/tracks">Tracks</a>
         </li>
-        <li role="presentation"><a href="/tracks/form">Form</a></li>
+        <li role="presentation"><a href="/tracks/form">Submission</a></li>
+        <% unless session["user"] %>
+        <li role="presentation"><a href="/users/login">Log In</a></li>
+        <% end %>
+        <% unless session["user"] %>
+        <li role="presentation"><a href="/users/signup">Sign Up</a></li>
+        <% end %>
+        <% if session["user"] %>
+        <li role="presentation"><a href="/users/logout">Log Out</a></li>
+        <% end %>
       </div>
     </div>
   </nav>
@@ -22,6 +34,7 @@
     <% @tracks.each do |track| %>
     <div class="track page-header col-md-4 text-center">
       <h3><a href="/tracks/<%= track.id %>"><%= track.title %></a> <p><small>(by: <%= track.author %>)</small></p></h3>
+      <p><small>Posted by: <% track.user_id %><%= @users.where('id: ?', track.user_id).name %></small></p>
     </div>
     <% end %>
   </div>

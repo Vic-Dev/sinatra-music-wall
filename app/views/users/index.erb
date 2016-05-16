@@ -25,22 +25,17 @@
     </div>
   </nav>
 
-  <div class="jumbotron">
-    <h1><%= @track.title %></h1>
+  <div class="jumbotron text-center">
+    <h1>Users Page</h1>
   </div>
-  <div class="page-header">
-    <h2><strong><%= @track.author %></strong></h2>
-  </div>
-
-  <p>
-    <div class="embed-responsive embed-responsive-4by3">
-      <%= @track_embed = /=(.*)$/.match(@track.URL)[1] %>
-      <iframe class="embed-responsive-item" width="560" height="315" src="//www.youtube.com/embed/<%= @track_embed %>" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </p>
-
   <hr/>
-  <div class="page-header">
-    <h2><a href="/tracks">Back to All Tracks</a></h2>
+
+  <div class="row">
+    <% @users.each do |user| %>
+    <div class="user page-header col-md-4 text-center">
+      <h3><%= user.id %>. <%= user.name %></a> <p><small>(pwd: <%= user.password %>)</small></p><p><small>Tracks: <% user.tracks.map do |track| %><li><%= track.title %></li><% end %></small></p></h3>
+    </div>
+    <% end %>
   </div>
+
 </div>
