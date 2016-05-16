@@ -1,0 +1,31 @@
+<h1>Post a Track</h1>
+<hr/>
+
+<% if @track.errors.any? %>
+  <div>
+    <strong>Some issues with your track, please fix them:</strong>
+    <ul>
+      <% @track.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<form method="post" action="/tracks">
+  <div>
+    <label>Author:</label>
+    <input type="text" name="author" value="<%= @track.author %>">
+  </div>
+  <div>
+    <label>Title:</label>
+    <input type="text" name="title" value="<%= @track.title %>">
+  </div>
+  <div>
+    <label>Youtube URL:</label>
+    <input type="text" name="URL" value="<%= @track.URL %>">
+  </div>
+  <div>
+    <input type="submit" value="Submit">
+  </div>
+</form>
