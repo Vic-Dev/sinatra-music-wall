@@ -1,0 +1,17 @@
+body {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.track {
+  padding-bottom: 70px;
+}
+
+.page-header h2 {
+  padding-bottom: 30px;
+}
+
+.fluid-container {
+  padding-left: 20%;
+  padding-right: 20%;
+}

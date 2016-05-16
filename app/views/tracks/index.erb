@@ -1,10 +1,20 @@
-<h1>All Tracks</h1>
-<hr/>
+<div class="container">
 
-<% @tracks.each do |track| %>
-  <div class="track">
-   <h3><a href="/tracks/<%= track.id %>"><%= track.title %></a> <small>(by: <%= track.author %>)</small></h3>
+  <div class="jumbotron text-center">
+    <h1>All Tracks</h1>
   </div>
-<% end %>
+  <hr/>
 
-<a href="tracks/form">Post a track... It's FREE ( for now ;) )!</a>
+  <div class="row">
+    <% @tracks.each do |track| %>
+    <div class="track page-header col-md-4 text-center">
+      <h3><a href="/tracks/<%= track.id %>"><%= track.title %></a> <p><small>(by: <%= track.author %>)</small></p></h3>
+    </div>
+    <% end %>
+  </div>
+
+  <div class="page-header text-center">
+    <h2>Post a <a href="tracks/form" class="btn btn-primary btn-lg">TRACK</a> It's FREE ( for now ;) )!</h2>
+  </div>
+
+</div>
