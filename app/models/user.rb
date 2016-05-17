@@ -5,5 +5,6 @@ class User < ActiveRecord::Base
 
   has_many :tracks
   has_many :votes
+  has_many :track_votes, class_name: :tracks, through: :votes
 
 end

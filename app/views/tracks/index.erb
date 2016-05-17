@@ -35,12 +35,12 @@
     <div class="track page-header col-md-4 text-center">
       <form method="post" action="/votes/<%= track.id %>">
 
-        <input class="arrow up" type="button" name="upvote" />
+        <input class="arrow up" type="submit" name="upvote" />
         
-        <div class="score likes">
+        <div class="score likes"><%= @votes.where(track_id: track.id).sum(:value) %>
         </div>
 
-        <input class="arrow down" type="button" name="downvote" />
+        <input class="arrow down" type="submit" name="downvote" />
 
       </form>
       <h3><a href="/tracks/<%= track.id %>"><%= track.title %></a> <p><small>(by: <%= track.author %>)</small></p></h3>

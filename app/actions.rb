@@ -9,6 +9,7 @@ end
 get '/tracks' do
   @users = User.all
   @tracks = Track.all
+  @votes = Vote.all
   erb :'tracks/index'
 end
 
@@ -93,19 +94,29 @@ post '/users/logout' do
 end
 
 post '/votes/:id' do
-  if params[:upvote]
-    @vote = Vote.new(
-      track_id: params[:id],
-      user_id: session["user"],
-      value: += 1
-    )
-  elsif params[:downvote]
-    @vote = Vote.new(
-      track_id: params[:id],
-      user_id: session["user"],
-      value: -= 1
-    )
+  vote = Vote.where("track_id = ? AND user_id = ?", params[:id], session["user"])
+  if vote.length == 1 
+    if params[:upvote] && vote[0].value < 1
+      vote[0].value += 1
+    elsif params[:downvote] && vote[0].value > -1
+      vote[0].value -= 1
+    end
+    vote[0].save
+  elsif vote.length == 0
+    if params[:upvote]
+      vote = Vote.new(
+        track_id: params[:id],
+        user_id: session["user"],
+        value: 1
+        )
+    elsif params[:downvote]
+      vote = Vote.new(
+        track_id: params[:id],
+        user_id: session["user"],
+        value: -1
+        )
+    end
+    vote.save
   end
-  @vote.save
   redirect '/tracks'
 end
