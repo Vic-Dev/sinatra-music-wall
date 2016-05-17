@@ -105,7 +105,7 @@ get '/users/logout' do
 end
 
 post '/users/logout' do
-  session[:user_session] = nil
+  session.clear
   erb :'users/login'
 end
 
