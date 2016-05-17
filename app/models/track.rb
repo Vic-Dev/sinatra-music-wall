@@ -7,6 +7,5 @@ class Track < ActiveRecord::Base
   belongs_to :user
   has_many :votes
   has_many :user_votes, class_name: :users, through: :votes
-  has_secure_password
 
 end
