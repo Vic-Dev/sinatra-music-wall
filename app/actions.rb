@@ -92,7 +92,6 @@ post '/users/login' do
     @user.login_token = session[:user_session]
 
     @user.save
-    binding.pry
     redirect '/tracks'
   else
     erb :'users/login'
@@ -116,7 +115,7 @@ post '/votes/:id' do
   UPVOTE = 1
   EXIST = 1
   NOT_EXIST = 0
-  vote_array = Vote.where("track_id = ? AND user_id = ?", params[:id], session["user"])
+  vote_array = Vote.where("track_id = ? AND user_id = ?", params[:id], current_user.id)
   vote = vote_array[0]
   if vote_array.length == EXIST
     if params[:upvote] && vote.value < MAX_UPVOTE
@@ -128,14 +127,14 @@ post '/votes/:id' do
     if params[:upvote]
       vote = Vote.new(
         track_id: params[:id],
-        user_id: session["user"],
-        value: upvote
+        user_id: current_user.id,
+        value: UPVOTE
         )
     elsif params[:downvote]
       vote = Vote.new(
         track_id: params[:id],
-        user_id: session["user"],
-        value: downvote
+        user_id: current_user.id,
+        value: DOWNVOTE
         )
     end
   end
