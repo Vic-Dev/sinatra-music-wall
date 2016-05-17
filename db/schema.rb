@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517184520) do
+ActiveRecord::Schema.define(version: 20160517193801) do
 
   create_table "tracks", force: :cascade do |t|
     t.string   "title"
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(version: 20160517184520) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"
+    t.string   "password_digest"
+    t.string   "login_token"
+    t.string   "remember_token"
   end
 
   add_index "tracks", ["user_id"], name: "index_tracks_on_user_id"
