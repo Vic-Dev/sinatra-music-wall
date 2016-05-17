@@ -7,12 +7,14 @@ get '/' do
 end
 
 get '/tracks' do
+  @users = User.all
   @tracks = Track.all
   erb :'tracks/index'
 end
 
 get '/tracks/form' do
   if session["user"]
+    @users = User.all
     @track = Track.new
     erb :'tracks/form'
   else
@@ -21,6 +23,7 @@ get '/tracks/form' do
 end
 
 get '/tracks/:id' do
+  @users = User.all
   @track = Track.find params[:id]
   erb :'tracks/show'
 end
@@ -31,7 +34,7 @@ post '/tracks' do
     title: params[:title],
     URL: params[:URL],
     user_id: session["user"].id
-  )
+    )
   if @track.save
     redirect '/tracks'
   else
@@ -62,26 +65,36 @@ post '/users/signup' do
 end
 
 get '/users/login' do
+  @users = User.all
   erb :'users/login'
 end
 
 post '/users/login' do
-  user = User.find_by(name: params[:user][:name])
-  user_password = user.password
-  entered_password = params[:user][:password]
-  if user_password == entered_password
-    session["user"] = user
-    redirect '/tracks'
+  if user = User.find_by(name: params[:name])
+    user_password = user.password
+    entered_password = params[:password]
+    if user_password == entered_password
+      session["user"] = user.id
+      redirect '/tracks'
+    end
   else
     "<h1>Login error</h1>"
   end
 end
 
 get '/users/logout' do
+  @users = User.all
   erb :'users/logout'
 end
 
 post '/users/logout' do
   session["user"] = nil
   erb :'users/login'
+end
+
+get '/upvote/:id' do
+  @track = Track.find params[:id]
+  @track.votes += 1
+  @track.save
+  redirect '/tracks'
 end

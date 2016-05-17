@@ -7,7 +7,7 @@
       </div>
       <div class="nav navbar-nav navbar-right nav-pills">
         <% if session["user"] %>
-        <span>Hi <%= session["user"].name %>!</span>
+        <span>Hi <%= @users.find(session["user"]).name %>!</span>
         <% end %>
         <li role="presentation" class="active"><a href="/tracks">Tracks</a>
         </li>
@@ -34,9 +34,11 @@
     <% @tracks.each do |track| %>
     <div class="track page-header col-md-4 text-center">
       <div>
+        <a href="/upvote/<%= track.id %>">
         <div class="arrow up">
         </div>
-        <div class="score likes">0
+        </a>
+        <div class="score likes"><%= track.votes %>
         </div>
         <div class="arrow down">
         </div>
