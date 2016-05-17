@@ -5,5 +5,6 @@ class Track < ActiveRecord::Base
   validates :URL, presence: true, format: { with: /\Ahttps:\/\/www.youtube.com\/watch\?/, message: "only allows youtube links"}
 
   belongs_to :user
+  has_many :votes
 
 end
