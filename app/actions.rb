@@ -30,8 +30,8 @@ post '/tracks' do
     author: params[:author],
     title: params[:title],
     URL: params[:URL],
-    user_id: params[:user][:id]
-    )
+    user_id: session["user"].id
+  )
   if @track.save
     redirect '/tracks'
   else
@@ -66,10 +66,11 @@ get '/users/login' do
 end
 
 post '/users/login' do
-  user_password = User.find_by(name: params[:user][:name]).password
+  user = User.find_by(name: params[:user][:name])
+  user_password = user.password
   entered_password = params[:user][:password]
   if user_password == entered_password
-    session["user"] = params[:user][:name]
+    session["user"] = user
     redirect '/tracks'
   else
     "<h1>Login error</h1>"

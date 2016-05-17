@@ -7,7 +7,7 @@
       </div>
       <div class="nav navbar-nav navbar-right nav-pills">
         <% if session["user"] %>
-        <span>Hi <%= session["user"] %>!</span>
+        <span>Hi <%= session["user"].name %>!</span>
         <% end %>
         <li role="presentation" class="active"><a href="/tracks">Tracks</a>
         </li>
@@ -33,6 +33,14 @@
   <div class="row">
     <% @tracks.each do |track| %>
     <div class="track page-header col-md-4 text-center">
+      <div>
+        <div class="arrow up">
+        </div>
+        <div class="score likes">0
+        </div>
+        <div class="arrow down">
+        </div>
+      </div>
       <h3><a href="/tracks/<%= track.id %>"><%= track.title %></a> <p><small>(by: <%= track.author %>)</small></p></h3>
       <p><small>Posted by: <%= track.user.name unless track.user.nil? %></small></p>
     </div>

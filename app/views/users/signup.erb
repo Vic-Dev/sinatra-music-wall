@@ -7,7 +7,7 @@
       </div>
       <div class="nav navbar-nav navbar-right nav-pills">
         <% if session["user"] %>
-        <span>Hi <%= session["user"] %>!</span>
+        <span>Hi <%= session["user"].name %>!</span>
         <% end %>
         <li role="presentation"><a href="/tracks">Tracks</a>
         </li>
