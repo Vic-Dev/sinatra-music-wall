@@ -93,5 +93,19 @@ post '/users/logout' do
 end
 
 post '/votes/:id' do
-
+  if params[:upvote]
+    @vote = Vote.new(
+      track_id: params[:id],
+      user_id: session["user"],
+      value: += 1
+    )
+  elsif params[:downvote]
+    @vote = Vote.new(
+      track_id: params[:id],
+      user_id: session["user"],
+      value: -= 1
+    )
+  end
+  @vote.save
+  redirect '/tracks'
 end
