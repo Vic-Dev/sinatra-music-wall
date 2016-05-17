@@ -92,9 +92,6 @@ post '/users/logout' do
   erb :'users/login'
 end
 
-get '/upvote/:id' do
-  @track = Track.find params[:id]
-  @track.votes += 1
-  @track.save
-  redirect '/tracks'
+post '/votes/:id' do
+
 end

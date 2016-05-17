@@ -33,16 +33,16 @@
   <div class="row">
     <% @tracks.each do |track| %>
     <div class="track page-header col-md-4 text-center">
-      <div>
-        <a href="/upvote/<%= track.id %>">
-        <div class="arrow up">
+      <form method="post" action="/votes/<%= track.id %>">
+
+        <input class="arrow up" type="button" name="upvote" />
+        
+        <div class="score likes">
         </div>
-        </a>
-        <div class="score likes"><%= track.votes %>
-        </div>
-        <div class="arrow down">
-        </div>
-      </div>
+
+        <input class="arrow down" type="button" name="downvote" />
+
+      </form>
       <h3><a href="/tracks/<%= track.id %>"><%= track.title %></a> <p><small>(by: <%= track.author %>)</small></p></h3>
       <p><small>Posted by: <%= track.user.name unless track.user.nil? %></small></p>
     </div>
