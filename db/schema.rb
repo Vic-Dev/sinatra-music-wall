@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160517204418) do
+ActiveRecord::Schema.define(version: 20160517221108) do
 
   create_table "tracks", force: :cascade do |t|
     t.string   "title"
@@ -29,7 +29,6 @@ ActiveRecord::Schema.define(version: 20160517204418) do
     t.string "password"
     t.string "password_digest"
     t.string "login_token"
-    t.string "remember_token"
   end
 
   create_table "votes", force: :cascade do |t|

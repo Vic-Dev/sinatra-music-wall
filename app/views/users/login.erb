@@ -6,8 +6,8 @@
         <a class="navbar-brand" href="/">Music Wall</a>
       </div>
       <div class="nav navbar-nav navbar-right nav-pills">
-        <% if session["user"] %>
-        <span>Hi <%= @users.find(session["user"]).name %>!</span>
+        <% if session[:user_session] %>
+        <span>Hi <%=  %>!</span>
         <% end %>
         <li role="presentation"><a href="/tracks">Tracks</a>
         </li>
@@ -44,7 +44,7 @@
       </div>
 
       <div>
-        <input type="submit" class="btn btn-primary btn-lg center-block" value="Log In">
+        <label><input type="checkbox" name="remember_me" value="true"> Remember Me</label>
       </div>
 
     </form>

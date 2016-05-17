@@ -6,8 +6,8 @@
         <a class="navbar-brand" href="/">Music Wall</a>
       </div>
       <div class="nav navbar-nav navbar-right nav-pills">
-        <% if session["user"] %>
-        <span>Hi <%= @users.find(session["user"]).name %>!</span>
+        <% if session[:user_session] %>
+        <span>Hi <%= @users.find_by_login_token(session[:user_session]) %>!</span>
         <% end %>
         <li role="presentation"><a href="/tracks">Tracks</a>
         </li>

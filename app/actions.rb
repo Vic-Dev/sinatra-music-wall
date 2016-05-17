@@ -1,25 +1,27 @@
 # Homepage (Root path)
 enable :sessions
 
-def current_user
-  if cookies.has_key? :remember_me
-    user = User.find_by_remember_token(cookies[:remember_me])
-    return user if user
-  end
-
-  if session.has_key?(:user_session)
-    user = User.find_by_login_token(session[:user_session])
-  else
-    nil
+helpers do
+  def current_user
+    if session.has_key?(:user_session)
+      user = User.find_by_login_token(session[:user_session])
+    else
+      nil
+    end
   end
 end
 
+def authenticate_user
+  redirect '/users/login' unless current_user
+end
+
 get '/' do
-  session["user"] ||= nil
+  session[:user_session] ||= nil
   erb :index
 end
 
 get '/tracks' do
+  authenticate_user
   @users = User.all
   @tracks = Track.all
   @votes = Vote.all
@@ -27,7 +29,7 @@ get '/tracks' do
 end
 
 get '/tracks/form' do
-  if session["user"]
+  if session[:user_session]
     @users = User.all
     @track = Track.new
     erb :'tracks/form'
@@ -70,7 +72,7 @@ post '/users/signup' do
   @user = User.new(
     name: params[:name],
     password: params[:password]
-    )
+  )
   if @user.save
     redirect '/users/login'
   else
@@ -84,16 +86,18 @@ get '/users/login' do
 end
 
 post '/users/login' do
-  if user = User.find_by(name: params[:name])
-    user_password = user.password
-    entered_password = params[:password]
-    if user_password == entered_password
-      session["user"] = user.id
-      redirect '/tracks'
-    end
+  @user = User.find_by_name(params[:name])
+  if @user && @user.authenticate(params[:password])
+    session[:user_session] = SecureRandom.hex
+    @user.login_token = session[:user_session]
+
+    @user.save
+    binding.pry
+    redirect '/tracks'
   else
-    "<h1>Login error</h1>"
+    erb :'users/login'
   end
+
 end
 
 get '/users/logout' do
@@ -102,7 +106,7 @@ get '/users/logout' do
 end
 
 post '/users/logout' do
-  session["user"] = nil
+  session[:user_session] = nil
   erb :'users/login'
 end
 
