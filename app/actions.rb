@@ -1,6 +1,19 @@
 # Homepage (Root path)
 enable :sessions
 
+def current_user
+  if cookies.has_key? :remember_me
+    user = User.find_by_remember_token(cookies[:remember_me])
+    return user if user
+  end
+
+  if session.has_key?(:user_session)
+    user = User.find_by_login_token(session[:user_session])
+  else
+    nil
+  end
+end
+
 get '/' do
   session["user"] ||= nil
   erb :index
