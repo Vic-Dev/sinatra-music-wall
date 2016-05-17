@@ -54,3 +54,7 @@ body {
     text-align: center;
     color: #c6c6c6;
 }
+
+.red {
+  float: left;
+}

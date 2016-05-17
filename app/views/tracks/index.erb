@@ -33,11 +33,13 @@
   <div class="row">
     <% @tracks.each do |track| %>
     <div class="track page-header col-md-4 text-center">
+
       <form method="post" action="/votes/<%= track.id %>">
 
         <input class="arrow up" type="submit" name="upvote" />
         
-        <div class="score likes"><%= @votes.where(track_id: track.id).sum(:value) %>
+        <div class="score likes">
+          <%= @votes.where(track_id: track.id).sum(:value) %>
         </div>
 
         <input class="arrow down" type="submit" name="downvote" />
