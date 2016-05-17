@@ -94,26 +94,31 @@ post '/users/logout' do
 end
 
 post '/votes/:id' do
+  MAX_UPVOTE = 1
+  MAX_DOWNVOTE = -1
+  UPVOTE = 1
+  EXIST = 1
+  NOT_EXIST = 0
   vote_array = Vote.where("track_id = ? AND user_id = ?", params[:id], session["user"])
   vote = vote_array[0]
-  if vote_array.length == 1 
-    if params[:upvote] && vote.value < 1
-      vote.value += 1
-    elsif params[:downvote] && vote.value > -1
-      vote.value -= 1
+  if vote_array.length == EXIST
+    if params[:upvote] && vote.value < MAX_UPVOTE
+      vote.value += UPVOTE
+    elsif params[:downvote] && vote.value > MAX_DOWNVOTE
+      vote.value -= UPVOTE
     end
-  elsif vote_array.length == 0
+  elsif vote_array.length == NOT_EXIST
     if params[:upvote]
       vote = Vote.new(
         track_id: params[:id],
         user_id: session["user"],
-        value: 1
+        value: upvote
         )
     elsif params[:downvote]
       vote = Vote.new(
         track_id: params[:id],
         user_id: session["user"],
-        value: -1
+        value: downvote
         )
     end
   end
