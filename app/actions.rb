@@ -43,6 +43,7 @@ get '/tracks/:id' do
   @users = User.all
   @track = Track.find params[:id]
   @reviews = Review.all
+  @reviews_for_track = Review.where(track_id: params[:id]).order(updated_at: :desc)
   erb :'tracks/show'
 end
 

@@ -46,14 +46,12 @@
   </div>
 
   <!-- Display each review by date -->
-  <% @reviews.each do |review| %>
+
+  <% @reviews_for_track.map do |review| %>
   <div>
-    <h3> <!-- Title -->
-      <small>(by: <!-- Author --> <%= review.user_id %>)</small>
-    </h3>
-    <p> <!-- Content --> <%= review.content %>
-    <small> <!-- Date --> <%= review.updated_at %> </small>
-    </p>
+    <h3><%= @users.find(review.user_id).name %></h3>
+    <p><%= review.content %></p>
+    <p><small><%= review.updated_at %> </small></p>
   </div>
   <% end %>
 
