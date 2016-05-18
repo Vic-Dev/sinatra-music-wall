@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 20160518001620) do
   create_table "reviews", force: :cascade do |t|
     t.integer  "track_id"
     t.integer  "user_id"
-    t.integer  "content"
+    t.string   "content"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

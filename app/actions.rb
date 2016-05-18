@@ -39,8 +39,10 @@ get '/tracks/form' do
 end
 
 get '/tracks/:id' do
+  authenticate_user
   @users = User.all
   @track = Track.find params[:id]
+  @reviews = Review.all
   erb :'tracks/show'
 end
 

@@ -40,6 +40,23 @@
   </p>
 
   <hr/>
+
+  <div class="page-header">
+    <h2>Reviews:</h2>
+  </div>
+
+  <!-- Display each review by date -->
+  <% @reviews.each do |review| %>
+  <div>
+    <h3> <!-- Title -->
+      <small>(by: <!-- Author --> <%= review.user_id %>)</small>
+    </h3>
+    <p> <!-- Content --> <%= review.content %>
+    <small> <!-- Date --> <%= review.updated_at %> </small>
+    </p>
+  </div>
+  <% end %>
+
   <div class="page-header">
     <h2><a href="/tracks">Back to All Tracks</a></h2>
   </div>
