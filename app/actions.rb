@@ -52,7 +52,7 @@ post '/tracks' do
     author: params[:author],
     title: params[:title],
     URL: params[:URL],
-    user_id: session["user"].id
+    user_id: current_user.id
     )
   if @track.save
     redirect '/tracks'
