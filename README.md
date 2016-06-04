@@ -1,7 +1,7 @@
 Sinatra
 =============
 
-Brought to you by Lighthouse Labs
+Music wall app allows users to post music title, author, and youtube link. Also allows users to upvote and downvote links.
 
 ## Getting Started
 
